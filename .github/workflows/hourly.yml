@@ -2,7 +2,6 @@ name: Deterministic HTTP collection timer
 on:
   schedule:
     - cron: '33 * * * *'
-    - cron: '3-58/5 * * * *'
   workflow_dispatch:
 permissions:
   contents: read
