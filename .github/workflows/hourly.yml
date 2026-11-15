@@ -1,0 +1,25 @@
+name: Deterministic HTTP collection timer
+on:
+  schedule:
+    - cron: '33 * * * *'
+    - cron: '3-58/5 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: http-collection
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Run deterministic collection
+        env:
+          EVENT_SITE_URL: ${{ secrets.EVENT_SITE_URL }}
+          EVENT_SITE_TOKEN: ${{ secrets.EVENT_SITE_TOKEN }}
+          EVENT_CRON_EXPRESSION: ${{ github.event.schedule }}
+        run: node collect.mjs
