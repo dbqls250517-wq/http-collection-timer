@@ -1,7 +1,7 @@
 name: Deterministic HTTP collection timer
 on:
   schedule:
-    - cron: '58 * * * *'
+    - cron: '13,28,43,58 * * * *'
   workflow_dispatch:
 permissions:
   contents: read
